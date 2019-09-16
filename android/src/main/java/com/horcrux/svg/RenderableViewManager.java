@@ -70,6 +70,8 @@ class RenderableViewManager extends ViewGroupManager<VirtualView> {
         RNSVGRadialGradient,
         RNSVGPattern,
         RNSVGMask,
+        // constant added
+        RNSVGBase64Image,
     }
 
     class RenderableShadowNode extends LayoutShadowNode {
@@ -141,6 +143,7 @@ class RenderableViewManager extends ViewGroupManager<VirtualView> {
         )
         public void ignoreLayoutProps(int index, Dynamic value) {}
     }
+
 
     @Override
     public LayoutShadowNode createShadowNodeInstance() {
@@ -390,6 +393,10 @@ class RenderableViewManager extends ViewGroupManager<VirtualView> {
             super(SVGClass.RNSVGPath);
         }
 
+        PathViewManager(SVGClass svgClass) {
+            super(svgClass);
+        }
+
         @ReactProp(name = "d")
         public void setD(PathView node, String d) {
             node.setD(d);
@@ -510,6 +517,44 @@ class RenderableViewManager extends ViewGroupManager<VirtualView> {
         @ReactProp(name = "midLine")
         public void setSharp(TextPathView node, @Nullable String midLine) {
             node.setSharp(midLine);
+        }
+    }
+
+    static class Base64ImageViewManager extends PathViewManager {
+      Base64ImageViewManager(){
+          // call with constant
+          super(SVGClass.RNSVGBase64Image);
+      }
+
+      // now some props job, looks like we now need to specify setters here
+      @ReactProp(name = "dx")
+      public void setDx(Base64ImageView node, int dx) {
+          node.setDx(dx);
+      }
+
+      @ReactProp(name = "dy")
+      public void setDy(Base64ImageView node, int dy) {
+         node.setDy(dy);
+      }
+
+      @ReactProp(name = "base64")
+      public void setBase64(Base64ImageView node, String encodedString) {
+          node.setBase64(encodedString);
+      }
+
+      @ReactProp(name = "atlasDescriptor")
+      public void setAtlasDescriptor(Base64ImageView node, String atlasDescriptor) {
+          node.setAtlasDescriptor(atlasDescriptor);
+      }
+
+      @ReactProp(name = "frameDescriptor")
+       public void setFrameDescriptor(Base64ImageView node, String frameDescriptor) {
+          node.setFrameDescriptor(frameDescriptor);
+       }
+
+       @ReactProp(name = "clipPath")
+        public void setClipPath(Base64ImageView node, String clipPath) {
+            node.setClipPath(clipPath);
         }
     }
 
@@ -1162,6 +1207,8 @@ class RenderableViewManager extends ViewGroupManager<VirtualView> {
                 return new PatternView(reactContext);
             case RNSVGMask:
                 return new MaskView(reactContext);
+            case RNSVGBase64Image:
+                return new Base64ImageView(reactContext);
             default:
                 throw new IllegalStateException("Unexpected type " + svgClass.toString());
         }

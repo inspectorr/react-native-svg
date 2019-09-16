@@ -21,6 +21,7 @@ import Stop from './elements/Stop';
 import ClipPath, { RNSVGClipPath } from './elements/ClipPath';
 import Pattern, { RNSVGPattern } from './elements/Pattern';
 import Mask, { RNSVGMask } from './elements/Mask';
+import Base64Image, { RNSVGBase64Image } from './elements/Base64Image';
 import { parse, SvgAst, SvgFromUri, SvgFromXml, SvgUri, SvgXml } from './xml';
 
 export {
@@ -46,6 +47,7 @@ export {
   ClipPath,
   Pattern,
   Mask,
+  Base64Image,
   parse,
   SvgAst,
   SvgFromUri,
@@ -72,6 +74,7 @@ export {
   RNSVGCircle,
   RNSVGRect,
   RNSVGSvg,
+  RNSVGBase64Image,
 };
 
 export default Svg;
